@@ -1,0 +1,24 @@
+{
+  "name": "sqlc-snippets",
+  "displayName": "SQLC Snippets",
+  "description": "PostgreSQL & SQLC snippets collection",
+  "version": "1.0.0",
+  "publisher": "RajaSunrise",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Snippets"],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "sql",
+        "path": "./snippets/snippets.json"
+      },
+      {
+        "language": "postgres",
+        "path": "./snippets/snippets.json"
+      }
+    ]
+  },
+  "icon": "images/icon.png"
+}
