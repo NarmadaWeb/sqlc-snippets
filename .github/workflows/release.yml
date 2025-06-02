@@ -1,0 +1,43 @@
+name: Build and Release VS Code Extension
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies (vsce)
+        run: npm install -g @vscode/vsce
+
+      - name: Sqlc Snippets
+        id: sqlc_snippets
+        run: |
+          echo "Packaging VS Code extension..."
+
+          VSCODE_EXTENSION_NAME=$(node -p "require('./package.json').name")
+          VSCODE_EXTENSION_VERSION=$(node -p "require('./package.json').version")
+          VSCODE_EXTENSION_FILE="${VSCODE_EXTENSION_NAME}-${VSCODE_EXTENSION_VERSION}.vsix"
+          echo "vsix_filename=${VSCODE_EXTENSION_FILE}" >> $GITHUB_OUTPUT
+          echo "Generated file: ${VSCODE_EXTENSION_FILE}"
+
+      - name: Create GitHub Release and Upload Asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.sqlc_snippets.outputs.vsix_filename }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB }}
