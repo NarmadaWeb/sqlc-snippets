@@ -1,6 +1,6 @@
 {
   "name": "sqlc-snippets",
-  "displayName": "SQLC Snippets",
+  "displayName": "sqlc snippets",
   "description": "PostgreSQL & SQLC snippets collection",
   "version": "1.0.0",
   "publisher": "RajaSunrise",
