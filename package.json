@@ -17,6 +17,10 @@
       {
         "language": "postgres",
         "path": "./snippets/snippets.json"
+      },
+      {
+        "language": "yaml",
+        "path": "./snippets/snippets.json"
       }
     ]
   },
