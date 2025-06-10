@@ -136,12 +136,11 @@
     "description": "Transaction block"
   },
 
-
   "PG: Create Table": {
     "prefix": "pgtbl",
     "body": [
       "CREATE TABLE ${1:table_name} (",
-      "\tid ${2|uuid,srial,bigserial|} PRIMARY KEY ${3|DEFAULT uuid_generate_v4(),DEFAULT gen_random_uuid(),|},",
+      "\tid ${2|uuid,serial,bigserial|} PRIMARY KEY ${3|DEFAULT uuid_generate_v4(),DEFAULT gen_random_uuid(),|},",
       "\tcreated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),",
       "\tupdated_at TIMESTAMPTZ,",
       "\t${4:column} ${5|text,varchar(255),int,bigint,bool,jsonb,timestamptz|} ${6|NOT NULL,NULL|},$0",
@@ -202,7 +201,6 @@
     "description": "Auto-update timestamp trigger"
   },
 
-
   "PG: CTE (With Clause)": {
     "prefix": "pgcte",
     "body": [
@@ -260,34 +258,6 @@
     "description": "Generate UUID v4"
   },
 
-
-  "sqlc.yaml": {
-    "prefix": "sqlcconfig",
-    "body": [
-      "version: \"2\"",
-      "sql:",
-      "  - engine: \"postgresql\"",
-      "    database:",
-      "      url: \"postgres://user:pass@localhost:5432/db\"",
-      "    schema: \"schema/\"",
-      "    queries: \"query/\"",
-      "    gen:",
-      "      go:",
-      "        package: \"${1:db}\"",
-      "        out: \"${2:internal/db}\"",
-      "        sql_package: \"pgx/v5\"",
-      "        overrides:",
-      "          - db_type: \"uuid\"",
-      "            go_type: \"github.com/google/uuid.UUID\"",
-      "          - db_type: \"timestamptz\"",
-      "            go_type: \"time.Time\"",
-      "      kotlin:",
-      "        package: \"com.example.db\"",
-      "        out: \"build/generated\""
-    ],
-    "description": "sqlc configuration template"
-  },
-
   "sqlc: Model Comment": {
     "prefix": "sqlcmodel",
     "body": [
@@ -297,7 +267,6 @@
     ],
     "description": "Add comments for sqlc model"
   },
-
 
   "Explain Analyze": {
     "prefix": "pgexplain",
@@ -328,7 +297,6 @@
     "body": "ARRAY_AGG(${1:column})",
     "description": "Aggregate to array"
   },
-
 
   "sqlc v2: Named Parameters": {
     "prefix": "sqlcv2",
@@ -370,7 +338,6 @@
     "description": "sqlc v2 with custom types"
   },
 
-
   "PG: Create Extension": {
     "prefix": "pgext",
     "body": "CREATE EXTENSION IF NOT EXISTS \"${1|uuid-ossp,pgcrypto,pg_trgm|}\";",
@@ -388,7 +355,6 @@
     "body": "ALTER TABLE ${1:table_name} DROP COLUMN ${2:column_name};",
     "description": "Drop column from table"
   },
-
 
   "PG: Row Level Security": {
     "prefix": "pgrls",

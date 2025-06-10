@@ -2,7 +2,7 @@
   "name": "sqlc-snippets",
   "displayName": "sqlc snippets super",
   "description": "PostgreSQL & SQLC snippets collection",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "publisher": "RajaSunrise",
   "engines": {
     "vscode": "^1.85.0"
@@ -12,15 +12,15 @@
     "snippets": [
       {
         "language": "sql",
-        "path": "./snippets/snippets.json"
+        "path": "./snippets/sql.json"
       },
       {
         "language": "postgres",
-        "path": "./snippets/snippets.json"
+        "path": "./snippets/sql.json"
       },
       {
         "language": "yaml",
-        "path": "./snippets/snippets.json"
+        "path": "./snippets/yaml.json"
       }
     ]
   },
