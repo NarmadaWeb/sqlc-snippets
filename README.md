@@ -1,161 +1,101 @@
+
 # Ultimate PostgreSQL & SQLC Snippets for VS Code
 
-Boost your database development productivity with this comprehensive collection of 50+ powerful snippets for PostgreSQL and SQLC. Designed to reduce boilerplate, enforce best practices, and speed up your workflow when working with modern SQL databases and the SQLC code generator.
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql)
+![SQLC](https://img.shields.io/badge/SQLC-00ADD8?style=for-the-badge&logo=go&logoColor=white)
+![VS Code](https://img.shields.io/badge/Visual_Studio_Code-007ACC?style=for-the-badge&logo=visual-studio-code)
+![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)
 
-## Features
+Supercharge your database workflow with this comprehensive collection of snippets for **PostgreSQL** and **SQLC**. This collection is designed to eliminate boilerplate, enforce best practices, and accelerate development for anyone working with SQL and the SQLC code generator.
 
-*   **Comprehensive SQLC Coverage**: Snippets for all core SQLC operations (`:one`, `:many`, `:exec`, `:batchexec`), including common patterns like returning inserted IDs, pagination, and batch inserts.
-*   **Advanced SQLC Patterns**: Tackle complex scenarios with snippets for JOINs with aggregation, JSONB queries, array operations, full-text search, and transaction blocks.
-*   **PostgreSQL DDL Mastery**: Quickly scaffold tables (with audit columns), indexes, enums, functions, and triggers (like auto-updating `updated_at`).
-*   **Modern PostgreSQL Types**: Easy-to-use snippets for `UUID`, `JSONB` (with defaults), `TEXT[]` arrays, and full-text search setup (`TSVECTOR`).
-*   **SQLC Configuration**: A ready-to-use `sqlc.yaml` template for both Go (pgx/v5) and Kotlin, including common type overrides.
-*   **SQLC v2 Ready**: Includes snippets leveraging SQLC v2 features like named parameters (`@param`) and batch operations with returning values.
-*   **Performance & Optimization**: Snippets for `EXPLAIN ANALYZE`, partial indexes, expression indexes, and Row Level Security (RLS) setup.
-*   **Migration & Utility**: Helpers for creating extensions, adding/dropping columns, and common SQL expressions.
-*   **Clear Descriptions**: Each snippet comes with a concise description of its purpose.
-*   **Placeholder Guidance**: Smart placeholders (`${1:name}`, `${2|option1,option2|}`) guide you through snippet completion.
+## Key Features
 
-## Installation
+-   **Comprehensive SQLC Coverage**: Snippets for all core SQLC operations (`:one`, `:many`, `:exec`), including common patterns like returning IDs and batch inserts.
+-   **Advanced SQL Patterns**: Tackle complex scenarios with snippets for JOINs, JSONB queries, array operations, full-text search, and transaction blocks.
+-   **PostgreSQL DDL Mastery**: Quickly scaffold tables with audit columns, indexes, enums, functions, and triggers for auto-updating `updated_at` timestamps.
+-   **Modern PostgreSQL Types**: Easy-to-use snippets for `UUID`, `JSONB`, arrays, and `TSVECTOR` for full-text search.
+-   **SQLC v2 Ready**: Includes snippets leveraging named parameters (`@param`) and other modern SQLC features.
+-   **Configuration & Utilities**: Get a head start with a `sqlc.yaml` template and helpers for migrations and database extensions.
 
-1.  Open **Visual Studio Code**.
-2.  Go to the **Extensions** view (Ctrl+Shift+X or Cmd+Shift+X).
-3.  Search for `[Your Extension Name Here - e.g., PostgreSQL SQLC Snippets Pro]`.
-4.  Click **Install**.
-5.  Reload VS Code if prompted.
+## How to Set Up
 
-## Usage
+To use these snippets, you need to add them to your VS Code user snippets file.
 
-Simply start typing the snippet `prefix` in a `.sql` file (or any filetype you configure snippets for, like `.sqlc`, `.query.sql`), and VS Code's IntelliSense will suggest the available snippets. Press `Tab` or `Enter` to insert the snippet. Use `Tab` to navigate through the placeholders.
+1.  In VS Code, go to **File > Preferences > Configure User Snippets**. (On macOS: **Code > Settings > Configure User Snippets**).
+2.  Select `sql.json` from the dropdown. If it doesn't exist, VS Code will create it for you.
+3.  Copy the entire content of the `snippets.json` file provided and paste it between the curly braces `{}` in your `sql.json` file.
+4.  Save the file. The snippets are now ready to use in any `.sql` file.
+
+## How to Use
+
+In a `.sql` file, simply start typing one of the prefixes below and press `Tab` or `Enter` to insert the code block. Use `Tab` to navigate through the placeholders (`${1:name}`, `${2:table}`, etc.) to quickly fill in the details.
 
 **Example:**
 
-1.  Type `sqlcone` in a `.sql` file.
+1.  Type `sqlcinsert`.
 2.  Press `Tab`.
-3.  The following snippet will be inserted:
-    ```sql
-    -- name: GetUser :one
-    SELECT * FROM users
-    WHERE id = $1;
-    ```
-4.  `GetUser` will be selected. Type your desired query name, then press `Tab` to move to `users`, and so on.
+3.  The snippet for an insert operation will appear, with the query name (`CreateUser`) already selected for you to change.
 
 ## Available Snippets
 
-Here's a categorized list of the main snippets included:
+### SQLC Core Operations
+| Prefix | Description |
+|---|---|
+| `sqlcone` | Fetches a single row from a table (`:one`). |
+| `sqlcmany` | Fetches multiple rows, often with pagination (`:many`). |
+| `sqlcinsert` | Inserts a new record and returns specified columns (`:one`). |
+| `sqlcupdate` | Updates a record based on its ID (`:exec`). |
+| `sqlcdelete` | Deletes a record based on its ID (`:exec`). |
+| `sqlcbatch` | A template for a batch insert operation (`:batchexec`). |
+| `sqlcv2` | SQLC v2 query using named parameters (`@param`). |
 
-### SQLC Core Templates
+### PostgreSQL DDL (Data Definition)
+| Prefix | Description |
+|---|---|
+| `pgtbl` | Creates a new table with standard audit columns (`id`, `created_at`, `updated_at`). |
+| `pgidx` | Creates an index on one or more columns. |
+| `pgexpridx` | Creates an index on an expression (e.g., `LOWER(email)`). |
+| `pgpartialidx`| Creates a partial index with a `WHERE` clause for optimization. |
+| `pgenum` | Creates a new ENUM type. |
+| `pgfunc` | Creates a basic PL/pgSQL function. |
+| `pgtrigger` | Creates a trigger to automatically update the `updated_at` timestamp. |
+| `pgext` | Creates a PostgreSQL extension (e.g., `uuid-ossp`). |
 
-| Prefix     | Description                       |
-| :--------- | :-------------------------------- |
-| `sqlcone`  | Get single row by ID              |
-| `sqlcmany` | Get paginated results             |
-| `sqlcinsert`| Insert with returning columns     |
-| `sqlcupdate`| Update record                     |
-| `sqlcdelete`| Delete record                     |
-| `sqlcbatch`| Batch insert operation            |
+### PostgreSQL DML & Advanced Queries
+| Prefix | Description |
+|---|---|
+| `pgcte` | A query using a Common Table Expression (CTE) with a `WITH` clause. |
+| `pgjsonb` | A `JSONB` column definition with a default empty object. |
+| `pgarray` | A `TEXT[]` array column definition. |
+| `pgfts` | A `TSVECTOR` column for full-text search. |
+| `pguuid` | Generates a UUID using `gen_random_uuid()`. |
+| `pgjoin` | A `JOIN` query that aggregates related data into a JSON array. |
+| `pgarrayagg` | A query that uses `ARRAY_AGG` to aggregate values into an array. |
+| `pgjsonbuild` | A query that uses `jsonb_build_object` to construct a JSON object. |
 
-### SQLC Advanced Patterns
+### Security & Migrations
+| Prefix | Description |
+|---|---|
+| `pgrls` | A template for enabling Row Level Security and creating a policy. |
+| `pggrant` | Grants `SELECT`, `INSERT`, `UPDATE`, `DELETE` permissions on a table to a role. |
+| `pgaddcol` | Adds a new column to an existing table. |
+| `pgdropcol` | Drops a column from an existing table. |
 
-| Prefix     | Description                       |
-| :--------- | :-------------------------------- |
-| `sqlcjoin` | Join with aggregation             |
-| `sqlcjson` | Query JSONB field                 |
-| `sqlcarray`| Query array column                |
-| `sqlcfts`  | Full-text search query            |
-| `sqlctx`   | Transaction block                 |
+### Configuration & Utilities
+| Prefix | Description |
+|---|---|
+| `sqlcconfig` | A complete `sqlc.yaml` configuration template for Go (pgx/v5). |
+| `sqlcmodel` | An SQLC comment to override a generated model's name. |
+| `pgexplain` | Wraps a query with `EXPLAIN (ANALYZE, BUFFERS, VERBOSE)` for performance analysis. |
+| `pgbegin` | A `BEGIN/ROLLBACK` block for testing queries safely. |
 
-### SQLC v2 Features
+## Core Benefits
 
-| Prefix        | Description                        |
-| :------------ | :--------------------------------- |
-| `sqlcv2`      | sqlc v2 named parameters           |
-| `sqlcv2batch` | sqlc v2 batch with returning       |
-| `sqlcv2type`  | sqlc v2 with custom types          |
-
-### PostgreSQL DDL (Data Definition Language)
-
-| Prefix      | Description                       |
-| :---------- | :-------------------------------- |
-| `pgtbl`     | Create table with audit columns   |
-| `pgidx`     | Create index                      |
-| `pgenum`    | Create enum type                  |
-| `pgfunc`    | Create PL/pgSQL function          |
-| `pgtrigger` | Auto-update timestamp trigger     |
-
-### PostgreSQL Advanced DML & Queries
-
-| Prefix        | Description                       |
-| :------------ | :-------------------------------- |
-| `pgcte`       | Common Table Expression           |
-| `pgjsonb`     | JSONB column with default         |
-| `pgarray`     | Text array column                 |
-| `pgfts`       | Full-text search setup            |
-| `pguuid`      | Generate UUID v4 (`gen_random_uuid()`) |
-
-### SQLC Configuration & Comments
-
-| Prefix       | Description                       |
-| :----------- | :-------------------------------- |
-| `sqlcconfig` | sqlc configuration template (`sqlc.yaml`) |
-| `sqlcmodel`  | Add comments for sqlc model       |
-
-### Migration Utilities
-
-| Prefix     | Description                       |
-| :--------- | :-------------------------------- |
-| `pgext`    | Create PostgreSQL extension       |
-| `pgaddcol` | Add column to table               |
-| `pgdropcol`| Drop column from table            |
-
-### Security
-
-| Prefix    | Description                       |
-| :-------- | :-------------------------------- |
-| `pgrls`   | Row Level Security policy         |
-| `pggrant` | Grant table permissions           |
-
-### Performance & Indexing
-
-| Prefix         | Description                       |
-| :------------- | :-------------------------------- |
-| `pgexpridx`    | Create index on expression        |
-| `pgpartialidx` | Create partial index              |
-
-### Utility & Testing Snippets
-
-| Prefix        | Description                       |
-| :------------ | :-------------------------------- |
-| `pgexplain`   | Detailed query analysis (`EXPLAIN ANALYZE BUFFERS VERBOSE`) |
-| `pgnow`       | Current timestamp (`NOW()`)         |
-| `pginterval`  | Time interval                     |
-| `pgjsonbuild` | Build JSONB object                |
-| `pgarrayagg`  | Aggregate to array                |
-| `pgbegin`     | Test transaction block (BEGIN/ROLLBACK) |
-
-*(Note: The `pgexplain` prefix from the `TESTING` section is listed above due to its comprehensiveness. The original JSON has two `pgexplain` entries; this one includes `VERBOSE`.)*
-
-
-## Why These Snippets?
-
-*   **Reduce Syntax Errors**: Pre-defined structures minimize typos and syntax mistakes.
-*   **Enforce Best Practices**: Snippets incorporate common patterns like audit columns, proper indexing, and SQLC naming conventions.
-*   **Accelerate Development**: Spend less time writing boilerplate and more time on business logic.
-*   **Full SQLC Compatibility**: Designed to work seamlessly with SQLC's query parsing and code generation.
-
-
-## Contributing
-
-Contributions are welcome! If you have a snippet that you think would be a great addition, or if you have improvements for existing ones:
-
-1.  Fork the repository.
-2.  Create a new branch (`git checkout -b feature/your-feature-name`).
-3.  Add or modify snippets in the `snippets/snippets.json` file (or wherever the source JSON is kept).
-4.  Commit your changes (`git commit -am 'Add some feature'`).
-5.  Push to the branch (`git push origin feature/your-feature-name`).
-6.  Create a new Pull Request.
-
-Please ensure your snippets are well-formatted, include a clear `prefix` and `description`, and use placeholders effectively.
+-   **Reduce Errors**: Pre-defined structures minimize typos and common syntax mistakes.
+-   **Enforce Best Practices**: Snippets include audit columns, proper indexing, and standard SQLC naming conventions.
+-   **Accelerate Development**: Spend less time writing boilerplate SQL and more time focusing on your application's logic.
+-   **Seamless SQLC Integration**: Designed from the ground up to work perfectly with SQLC's query parsing and code generation.
 
 ## License
 
-MIT License.
+This project is licensed under the MIT License.
